@@ -2,263 +2,279 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Fit mit 6 Bit - Lern-App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farben & Design – v1.3.1</title>
 <style>
 :root {
     --bg-black: #0a0a0a;
     --card-bg: #161616;
     --accent-red: #cc0000;
-    --accent-red-dim: rgba(204, 0, 0, 0.25);
+    --accent-red-bright: #ff3333;
     --text-white: #ffffff;
     --text-gray: #888888;
-    --nav-bg: #121212;
-    --border: #222222;
-}
-
-html, body {
-    margin:0;
-    padding:0;
-    height:100%;
+    --border: #2a2a2a;
+    --glass: rgba(255, 255, 255, 0.03);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
     background-color: var(--bg-black);
     color: var(--text-white);
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
 header {
-    width:100%;
-    padding:15px 0;
-    text-align:center;
-    background: var(--nav-bg);
-    border-bottom:1px solid var(--border);
-    flex-shrink:0;
-}
-
-h1 { color: var(--accent-red); margin:0; font-size:1.6rem; letter-spacing:1px; font-weight:800; }
-.version-label { font-size:0.75rem; color:var(--text-gray); margin-top:4px; }
-
-#instructionText {
-    max-width: 450px;
+    padding: 20px 10px;
+    background: linear-gradient(180deg, #151515 0%, #0a0a0a 100%);
+    border-bottom: 1px solid var(--border);
     text-align: center;
-    font-size: 1.1rem;
-    margin: 10px auto;
+}
+
+h1 {
+    color: var(--accent-red);
+    font-size: 1.6rem;
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(204,0,0,0.4);
+}
+
+.version-label {
+    font-size: 0.65rem;
     color: var(--text-gray);
-    min-height: 2.5em;
-    flex-shrink:0;
+    margin-top: 4px;
+    display: block;
+    opacity: 0.7;
 }
 
-.game-controls {
-    display: flex;
-    gap: 15px;
-    width:90%;
-    max-width:400px;
-    margin:10px auto;
-    flex-shrink:0;
-    flex-wrap: wrap;
-}
-
-.btn-game { flex:1; padding:18px; border-radius:12px; border:none; font-weight:bold; font-size:1.2rem; cursor:pointer; color:white; }
-.btn-yes { background-color:#1b5e20; }
-.btn-no { background-color:#b71c1c; }
-
-.card-container {
-    width:90%;
-    max-width:550px;
-    height:480px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-shrink:0;
-}
-
-.card {
-    width:100%;
-    height:100%;
-    background: var(--card-bg);
-    border-radius: 30px;
-    border: 2px solid var(--border);
+.menu-row {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 25px;
-    box-sizing: border-box;
-    box-shadow: 0 20px 60px rgba(0,0,0,1);
-    text-align: center;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto 5px;
+    padding: 0 15px;
+}
+
+select {
+    flex: 1;
+    background: var(--glass);
+    color: var(--text-white);
+    border: 1px solid var(--accent-red);
+    padding: 14px;
+    border-radius: 15px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    outline: none;
     cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    -webkit-appearance: none;
 }
 
-.number-grid { 
-    display:grid; 
-    grid-template-columns:repeat(4,1fr); 
-    gap:23px; 
-    width:100%; 
+select:hover {
+    background: rgba(204, 0, 0, 0.1);
+    border-color: var(--accent-red-bright);
+    box-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
-.number-grid div {
-    font-size: clamp(1.3rem,5vw,1.8rem);
-    font-weight:900;
-    color:var(--accent-red);
-    background:var(--accent-red-dim);
-    display:flex; justify-content:center; align-items:center;
-    aspect-ratio:1/1;
-    border-radius:12px;
-    border:1px solid rgba(204,0,0,0.2);
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.info-text { font-size:1.25rem; line-height:1.6; }
-.info-text strong { display:block; color:var(--accent-red); margin-bottom:15px; font-size:1.5rem; }
-.example-calc { color:#ff9999; font-family:monospace; font-size:1.4rem; margin-top:10px; display:block; }
-
-.bottom-area {
-    width:100%;
-    background: var(--nav-bg);
-    border-top:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-    flex-shrink:0;
+.info-card {
+    width: 100%;
+    max-width: 520px;
+    min-height: 420px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 35px;
+    padding: 40px 30px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(10px);
 }
 
-.nav-bar { display:flex; justify-content:space-around; padding:12px 0; width:100%; }
-.nav-item { background:none; border:none; color:var(--text-gray); display:flex; flex-direction:column; align-items:center; font-size:0.75rem; cursor:pointer; flex:1; }
-.nav-item.active { color: var(--accent-red); }
-.nav-icon { font-size:1.6rem; margin-bottom:4px; }
+#colorIndicator {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    border: 4px solid rgba(255,255,255,0.05);
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
-.app-footer-text { padding:10px 15px; font-size:0.75rem; color:#888; text-align:center; line-height:1.4; border-top:1px solid #1a1a1a; }
+.info-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ececec;
+}
+
+.info-content strong {
+    display: block;
+    font-size: 1.85rem;
+    color: var(--accent-red-bright);
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.tech-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #ffaaaa;
+}
+
+footer {
+    background: #0a0a0a;
+    border-top: 1px solid var(--border);
+    padding: 20px 20px 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    line-height: 1.5;
+}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Fit mit 6 Bit</h1>
-    <div class="version-label">Version 2.9.7</div>
+    <h1>Farben – Malen & Design</h1>
+    <span class="version-label">EDITION 1.3.1</span>
+    <div class="menu-row">
+        <select id="colorMenu" onchange="handleSelect('color')">
+            <option value="">🎨 Farbwahl</option>
+            <option value="rot">Rot</option>
+            <option value="dunkelrot">Dunkelrot</option>
+            <option value="orange">Orange</option>
+            <option value="gelb">Gelb</option>
+            <option value="dunkelgelb">Dunkelgelb</option>
+            <option value="gruen">Grün</option>
+            <option value="dunkelgruen">Dunkelgrün</option>
+            <option value="tuerkis">Türkis</option>
+            <option value="blau">Blau</option>
+            <option value="dunkelblau">Dunkelblau</option>
+            <option value="lila">Lila</option>
+            <option value="rosa">Rosa</option>
+            <option value="braun">Braun</option>
+            <option value="beige">Beige</option>
+            <option value="grau">Grau</option>
+            <option value="schwarz">Schwarz</option>
+        </select>
+
+        <select id="hintMenu" onchange="handleSelect('hint')">
+            <option value="">💡 Techniken</option>
+            <option value="aquarell">Aquarell</option>
+            <option value="oel">Ölmalerei</option>
+            <option value="acryl">Acryl</option>
+            <option value="pastell">Pastell</option>
+            <option value="harmonie">Farbharmonie</option>
+            <option value="licht">Licht & Schatten</option>
+            <option value="untergrund">Untergrund</option>
+        </select>
+    </div>
 </header>
 
-<div id="instructionText">Wähle eine Zahl zwischen (1-63). Ist sie hier?</div>
-
-<div class="game-controls" id="gameControls">
-    <button class="btn-game btn-yes" onclick="answer(true)">JA</button>
-    <button class="btn-game btn-no" onclick="answer(false)">NEIN</button>
-</div>
-
-<div class="card-container">
-    <div id="card" class="card">
-        <div id="cardContent"></div>
+<main>
+    <div class="info-card">
+        <div id="colorIndicator"></div>
+        <div id="displayArea" class="info-content">
+            <strong>Kreativ-Studio</strong>
+            Entdecke die Welt der Farben und Techniken. Wähle ein Menü, um zu starten.
+        </div>
     </div>
-</div>
+</main>
 
-<div class="bottom-area">
-    <nav class="nav-bar">
-        <button class="nav-item active" id="navTrick" onclick="restart()">
-            <div class="nav-icon">⚙️</div>
-            <div>Trick</div>
-        </button>
-        <button class="nav-item" id="navInfo" onclick="startBinaryInfo()">
-            <div class="nav-icon">📖</div>
-            <div>Binärcode</div>
-        </button>
-        <button class="nav-item" id="navExamples" onclick="startExamples()">
-            <div class="nav-icon">💡</div>
-            <div>Beispiele</div>
-        </button>
-        <button class="nav-item" onclick="restart()">
-            <div class="nav-icon">🔄</div>
-            <div>Neustart</div>
-        </button>
-    </nav>
-    <div class="app-footer-text">
-        Lern-App zum Binär-Code • Grundlage für den ASCII-Code • Inspiriert durch Steven • Ideal für Zaubertricks
-    </div>
-</div>
+<footer>
+    @Lern-App für Malerei, Design & Farben.<br>
+    Inspiriert durch Marina H.
+</footer>
 
 <script>
-const bitValues=[32,16,8,4,2,1];
-let cardIndex=0,currentSum=0,currentState="TRICK";
-let trickOrder=[]; // Zufällige Reihenfolge
+const infoData = {
+  rot: { hex: "#FF0000", rgb: "255,0,0", t: "Rot", c: "Energie und Leidenschaft. Mischung: Mit Blau zu Lila, mit Gelb zu Orange." },
+  dunkelrot: { hex: "#8B0000", rgb: "139,0,0", t: "Dunkelrot", c: "Intensität und Wärme. Mischung: Mit Schwarz zu Bordeaux." },
+  orange: { hex: "#FFA500", rgb: "255,165,0", t: "Orange", c: "Aktivität und Wärme. Mischung: Mit Blau zu Braun." },
+  gelb: { hex: "#FFFF00", rgb: "255,255,0", t: "Gelb", c: "Freude und Licht. Mischung: Mit Blau zu Grün." },
+  dunkelgelb: { hex: "#CCCC00", rgb: "204,204,0", t: "Dunkelgelb", c: "Stabilität und Wärme. Mischung: Mit Rot zu Orange." },
+  gruen: { hex: "#00FF00", rgb: "0,255,0", t: "Grün", c: "Natur und Harmonie. Mischung: Mit Rot zu Braun, mit Blau zu Türkis." },
+  dunkelgruen: { hex: "#006400", rgb: "0,100,0", t: "Dunkelgrün", c: "Ruhe und Tiefe. Mischung: Mit Blau zu Petrol." },
+  tuerkis: { hex: "#40E0D0", rgb: "64,224,208", t: "Türkis", c: "Frische und Klarheit. Mischung: Mit Rot zu Braun." },
+  blau: { hex: "#0000FF", rgb: "0,0,255", t: "Blau", c: "Ruhe und Tiefe. Mischung: Mit Rot zu Lila, mit Gelb zu Grün." },
+  dunkelblau: { hex: "#00008B", rgb: "0,0,139", t: "Dunkelblau", c: "Konzentration und Tiefe. Mischung: Mit Schwarz zu Nachtblau." },
+  lila: { hex: "#800080", rgb: "128,0,128", t: "Lila", c: "Kreativität und Mystik. Mischung: Mit Gelb zu Braun." },
+  rosa: { hex: "#FF69B4", rgb: "255,105,180", t: "Rosa", c: "Leichtigkeit und Freude. Mischung: Mit Blau zu Violett." },
+  braun: { hex: "#A52A2A", rgb: "165,42,42", t: "Braun", c: "Erdung und Stabilität. Mischung: Mit Weiß zu Beige." },
+  beige: { hex: "#F5F5DC", rgb: "245,245,220", t: "Beige", c: "Ruhe und Neutralität. Mischung: Mit Rot zu Pfirsich." },
+  grau: { hex: "#808080", rgb: "128,128,128", t: "Grau", c: "Neutralität und Balance. Mischung: Mit Schwarz zu Dunkelgrau." },
+  schwarz: { hex: "#000000", rgb: "0,0,0", t: "Schwarz", c: "Eleganz und Tiefe. Mischung: Mit Weiß zu Grau." },
+  aquarell: { t: "Aquarell", c: "Transparenz: viel Wasser für fließende, leichte Übergänge." },
+  oel: { t: "Ölmalerei", c: "Farbtiefe: Schichten auftragen, 'fett auf mager' beachten." },
+  acryl: { t: "Acryl", c: "Schnell trocknend, ideal für Schichtmalerei und Strukturpasten." },
+  pastell: { t: "Pastell", c: "Samtige Pigmente direkt verreiben, Fixativ verwenden." },
+  harmonie: { t: "Farbharmonie", c: "Komplementärfarben für Spannung, analoge Farben für Ruhe." },
+  licht: { t: "Licht & Schatten", c: "Helle Farben wirken nah, dunkle ziehen nach hinten." },
+  untergrund: { t: "Untergrund", c: "Die Wahl von Papier oder Leinwand bestimmt die Struktur." }
+};
 
-
-const binaryCards=[
-    "Was ist der Binärcode?\n\nComputer nutzen nur 0 und 1.",
-    "Strom an, Strom aus\n\n1 bedeutet Strom fließt, 0 bedeutet kein Strom.",
-    "Das Bit\n\nEin Bit ist die kleinste Information.",
-    "Warum 6-Bit?\n\nMit 6 Bits kann man Zahlen von 0-63 darstellen.",
-    "Addition\n\nNur die Bits mit 1 zählen.",
-    "Grundlage ASCII\n\nDiese Zahlen bilden Buchstaben ab.",
-    "\"Warum funktioniert der 6-Bit-Trick?\"\n\nDer Trick funktioniert, weil jede Zahl zwischen 1 und 63 durch die Kombination der sechs Bits eindeutig dargestellt wird. Mit den JA/NEIN-Antworten kann man die Zahl genau bestimmen.\"",
-    "\"Wie ist die Logik des Tricks?\"\n\nMan zeigt nacheinander Karten mit Zahlen, die jeweils bestimmte Bit-Werte enthalten. Wer 'JA' sagt, zeigt, dass das Bit gesetzt ist. Am Ende werden alle gesetzten Bits addiert – so entsteht die gewählte Zahl.\""
-];
-
-
-
-
-const exampleData=[
-    {title:"Zahl 1",calc:"000001",expl:"Nur das Bit mit dem Wert 1 ist aktiv."},
-    {title:"Zahl 12",calc:"001100",expl:"Bits 8+4 = 12."},
-    {title:"Zahl 21",calc:"010101",expl:"16+4+1=21."},
-    {title:"Zahl 42",calc:"101010",expl:"32+8+2=42."},
-    {title:"Zahl 29",calc:"011101",expl:"16+8+4+1=29."},
-    {title:"Zahl 63",calc:"111111",expl:"Alle Bits sind an: 32+16+8+4+2+1=63."}
-];
-
-let infoIndex=0,exampleIndex=0;
-
-function speak(text){if(window.speechSynthesis){speechSynthesis.cancel();let msg=new SpeechSynthesisUtterance(text);msg.lang='de-DE';speechSynthesis.speak(msg);}}
-
-function setActive(id){document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));if(id) document.getElementById(id).classList.add('active');}
-
-function shuffleArray(arr){return arr.map(a=>[Math.random(),a]).sort((a,b)=>a[0]-b[0]).map(a=>a[1]);}
-
-function showTrickCard(){
-    currentState="TRICK";
-    setActive('navTrick');
-    const card=document.getElementById("card");
-    const content=document.getElementById("cardContent");
-    const controls=document.getElementById("gameControls");
-    const instr=document.getElementById("instructionText");
-    card.onclick=null;
-
-    if(trickOrder.length===0){
-        trickOrder = shuffleArray([...bitValues]);
-        cardIndex=0;
-        currentSum=0;
+function speak(text) {
+    if (window.speechSynthesis) {
+        speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'de-DE';
+        speechSynthesis.speak(msg);
     }
-
-    if(cardIndex>=trickOrder.length){
-        controls.style.display="none";
-        instr.innerText="Gefunden!";
-        content.innerHTML=`<div class="info-text">Deine Zahl ist<br><span style="font-size:5rem;font-weight:900;color:#cc0000;">${currentSum}</span></div>`;
-        speak("Deine Zahl ist "+currentSum);
-        trickOrder=[];
-        return;
-    }
-
-    controls.style.display="flex";
-    instr.innerHTML="Wähle eine Zahl (1-63).<br>Ist sie auf dieser Karte?";
-
-    const bitValue = trickOrder[cardIndex];
-    let nums=[];
-    for(let i=1;i<64;i++){
-        if(i & bitValue) nums.push(i);
-    }
-    // Highlight entfernt, nur normale Zahlen anzeigen
-    content.innerHTML=`<div class="number-grid">${nums.map(n=>`<div>${n}</div>`).join("")}</div>`;
 }
 
-function answer(isYes){if(isYes) currentSum+=trickOrder[cardIndex]; cardIndex++; showTrickCard();}
-function restart(){trickOrder=[]; showTrickCard();}
-function startBinaryInfo(){currentState="INFO"; setActive('navInfo'); infoIndex=0; updateInfo();}
-function updateInfo(){const card=document.getElementById("card"); const content=document.getElementById("cardContent"); document.getElementById("gameControls").style.display="none"; document.getElementById("instructionText").innerText="Tippe auf die Karte."; const parts=binaryCards[infoIndex].split("\n\n"); content.innerHTML=`<div class="info-text"><strong>${parts[0]}</strong>${parts[1]||''}</div>`; speak(binaryCards[infoIndex]); card.onclick=()=>{infoIndex++; if(infoIndex<binaryCards.length) updateInfo(); else restart();}}
-function startExamples(){currentState="EXAMPLES"; setActive('navExamples'); exampleIndex=0; updateExample();}
-function updateExample(){const card=document.getElementById("card"); const content=document.getElementById("cardContent"); document.getElementById("gameControls").style.display="none"; document.getElementById("instructionText").innerText="Rechenweg verstehen:"; const ex=exampleData[exampleIndex]; content.innerHTML=`<div class="info-text"><strong>${ex.title}</strong> Binär: <span class="example-calc">${ex.calc}</span><br><br>${ex.expl}</div>`; speak(ex.title+". "+ex.expl); card.onclick=()=>{exampleIndex++; if(exampleIndex<exampleData.length) updateExample(); else restart();}}
+function handleSelect(type) {
+    const colorVal = document.getElementById('colorMenu').value;
+    const hintVal = document.getElementById('hintMenu').value;
+    const key = (type === 'color') ? colorVal : hintVal;
 
-showTrickCard();
+    if (!key) return;
+
+    const data = infoData[key];
+    const display = document.getElementById('displayArea');
+    const indicator = document.getElementById('colorIndicator');
+
+    if(type === 'color') document.getElementById('hintMenu').value = "";
+    else document.getElementById('colorMenu').value = "";
+
+    let content = `<strong>${data.t}</strong>`;
+
+    if (data.hex) {
+        content += `<div class="tech-box">HEX: ${data.hex} <br>RGB: ${data.rgb}</div>`;
+        indicator.style.display = "block";
+        indicator.style.backgroundColor = data.hex;
+        speak(data.t + ". Farbcode " + data.hex + ". " + data.c);
+    } else {
+        indicator.style.display = "none";
+        speak(data.t + ". " + data.c);
+    }
+
+    content += data.c;
+    display.innerHTML = content;
+}
 </script>
 
 </body>
 </html>
-
